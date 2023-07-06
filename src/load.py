@@ -9,6 +9,10 @@ def load_data(df_table):
     key_path = "conf/GBQ.json"
     credentials = service_account.Credentials.from_service_account_file(key_path)
 
-    df_table.to_gbq(credentials = credentials,
-                    destination_table = 'neural-foundry-391916.dataset-steamdb.table-sales',
-                    if_exists = 'replace')
+    try:
+        df_table.to_gbq(credentials = credentials,
+                        destination_table = 'neural-foundry-391916.dataset_steamdb.table-sales',
+                        if_exists = 'replace')
+        print("ETL job successful!")
+    except:
+        print("ETL job failed!")
